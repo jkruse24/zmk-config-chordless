@@ -86,7 +86,7 @@
         //│  >       │  !       │  )       │  }       │  ]       │   │  0       │  1       │  2       │  3       │  =       │
             &kp GT     &kp EXCL   &kp RPAR   &kp RBRC   &kp RBKT       &kp N0     &kp N1     &kp N2     &kp N3     &kp EQUAL 
         //╰──────────┴──────────┴──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┴──────────┴──────────╯
-                                             &trans     &kp LSHFT      &trans     &to BASE
+                                          &to SETTINGS  &kp LSHFT      &trans     &to BASE
         //                                 ╰──────────┴──────────╯   ╰──────────┴──────────╯
             >;
         };
@@ -103,7 +103,7 @@
         //│          │          │          │          │          │   │  BREAK   │  F1      │  F2      │  F3      │          │
             &trans     &trans     &trans     &trans     &trans     &kp PAUSE_BREAK &kp 1      &kp F2     &kp F3     &trans    
         //╰──────────┴──────────┴──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┴──────────┴──────────╯
-                                             &trans     &kp LSHFT      &trans     &to BASE
+                                           &to SETTINGS &kp LSHFT      &trans     &to BASE
         //                                 ╰──────────┴──────────╯   ╰──────────┴──────────╯
             >;
         };
