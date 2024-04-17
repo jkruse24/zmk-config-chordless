@@ -7,12 +7,12 @@
 
 // Home row mods macro
 #define HRML(k1,k2,k3,k4) &ht LC(LS(LA(LGUI))) k1 &ht LGUI k2  &ht LALT k3  &ht LCTRL k4
-#define HRMR(k1,k2,k3,k4) &ht RCTRL k1  &ht RALT k2  &ht RGUI k3  &ht RCTRL k4
-#define HRMN(k1,k2,k3,k4) &ht LGUI k1  &ht RALT k2  &ht LCTRL k3  &ht LSHFT k4
+#define HRMR(k1,k2,k3,k4) &ht RCTRL k1  &ht RALT k2  &ht RGUI k3  &ht LC(LS(LA(LGUI))) k4
+#define HRMN(k1,k2,k3) &ht LGUI k1  &ht LALT k2  &ht LCTRL k3
 
 #define BASE        0
-#define SYM         1
-#define NAV         2
+#define NAV         1
+#define NUM         2
 #define FN          3
 #define SETTINGS    4
 
@@ -30,13 +30,13 @@
         };
     };
 
-    conditional_layers {
-        compatible = "zmk,conditional-layers";
-        tri_layer {
-            if-layers = <1 2>;
-            then-layer = <4>;
-        };
-    };
+    //conditional_layers {
+    //    compatible = "zmk,conditional-layers";
+    //    tri_layer {
+    //        if-layers = <1 2>;
+    //        then-layer = <4>;
+    //    };
+    //};
 
     keymap {
         compatible = "zmk,keymap";
@@ -52,24 +52,7 @@
         //│  Z       │  X       │  C       │  V       │  B       │   │  N       │  M       │ , <      │ . >      │          │
             &kp Z      &kp X      &kp C      &kp V      &kp B          &kp N      &kp M      &kp COMMA  &kp DOT    &kp ENTER 
         //╰──────────┴──────────┴──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┴──────────┴──────────╯
-                                           &lt NAV TAB &kp LSHFT     &kp BSPC   &lt SYM SPACE
-        //                                 ╰──────────┴──────────╯   ╰──────────┴──────────╯
-            >;
-        };
-
-        sym_layer {
-            bindings = <
-        //╭──────────┬──────────┬──────────┬──────────┬──────────╮   ╭──────────┬──────────┬──────────┬──────────┬──────────╮
-        //│  !       │  @       │  #       │  ?       │  $       │   │  +       │  7       │  8       │  9       │  *       │
-            &kp INS    &kp AT     &kp HASH   &kp QMARK  &kp DLLR       &kp PLUS   &kp N7     &kp N8     &kp N9     &kp ASTRK 
-        //├──────────┼──────────┼──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┼──────────┼──────────┤
-        //│  <       │  %       │  (       │  {       │  [       │   │  -       │  4       │  5       │  6       │  /       │
-            &kp LT    &kp PRCNT   &kp LPAR   &kp LBRC   &kp LBKT       &kp MINUS  &kp N4     &kp N5     &kp N6     &kp FSLH  
-        //├──────────┼──────────┼──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┼──────────┼──────────┤
-        //│  >       │  !       │  )       │  }       │  ]       │   │  0       │  1       │  2       │  3       │  =       │
-            &kp GT     &kp EXCL   &kp RPAR   &kp RBRC   &kp RBKT       &kp N0     &kp N1     &kp N2     &kp N3     &kp EQUAL 
-        //╰──────────┴──────────┴──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┴──────────┴──────────╯
-                                             &trans     &kp ESC        &trans     &trans
+                                             &to NAV    &kp LSHFT      &kp TAB   &kp SPACE
         //                                 ╰──────────┴──────────╯   ╰──────────┴──────────╯
             >;
         };
@@ -77,16 +60,33 @@
         nav_layer {
             bindings = <
         //╭──────────┬──────────┬──────────┬──────────┬──────────╮   ╭──────────┬──────────┬──────────┬──────────┬──────────╮
-        //│  ESC     │          │  ;       │  ^       │          │   │  PAGE UP │  HOME    │  UP      │  END     │  DELETE  │
-            &kp ESC    &trans     &kp SEMI   &kp CARET  &trans         &kp PG_UP  &kp HOME   &kp UARW   &kp END    &kp DEL   
+        //│  `       │          │  ;       │  ^       │          │   │  PAGE UP │  HOME    │  UP      │  END     │  DELETE  │
+           &kp GRAVE   &trans     &kp SEMI   &kp CARET  &trans         &kp PG_UP  &kp HOME   &kp UARW   &kp END    &kp DEL   
         //├──────────┼──────────┼──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┼──────────┼──────────┤
-        //│  `       │  ~       │  _       │  &       │  +       │   │  PAGE DN │  LEFT    │  DOWN    │  RIGHT   │  BSPC    │
-           HRMN(GRAVE, TILDE,     UNDER,     AMPS)      &kp PLUS       &kp PG_DN  &kp LARW   &kp DARW   &kp RARW   &trans
+        //│  `       │  ~       │  _       │  &       │  |       │   │  PAGE DN │  LEFT    │  DOWN    │  RIGHT   │  BSPC    │
+            &to NUM HRMN(TILDE,   UNDER,    AMPS)      &kp PIPE       &kp PG_DN  &kp LARW   &kp DARW   &kp RARW   &trans
         //├──────────┼──────────┼──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┼──────────┼──────────┤
         //│ INSERT   │ CAPS     │  :       │  \       │          │   │ SEL ALL  │  PASTE   │  COPY    │  CUT     │  UNDO    │
             &kp INS    &caps_word &kp COLON  &kp BSLH   &trans         &kp LC(A)  &kp LC(V)  &kp LC(C)  &kp LC(X)  &kp LC(Z) 
         //╰──────────┴──────────┴──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┴──────────┴──────────╯
-                                             &trans     &kp ESC      &lt FN ENTER  &trans
+                                             &to FN     &kp LSHFT      &kp ESC    &to BASE
+        //                                 ╰──────────┴──────────╯   ╰──────────┴──────────╯
+            >;
+        };
+
+        num_layer {
+            bindings = <
+        //╭──────────┬──────────┬──────────┬──────────┬──────────╮   ╭──────────┬──────────┬──────────┬──────────┬──────────╮
+        //│  !       │  @       │  #       │  ?       │  $       │   │  +       │  7       │  8       │  9       │  *       │
+            &kp INS    &kp AT     &kp HASH   &kp QMARK  &kp DLLR       &kp PLUS   &kp N7     &kp N8     &kp N9     &kp ASTRK 
+        //├──────────┼──────────┼──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┼──────────┼──────────┤
+        //│  <       │  %       │  (       │  {       │  [       │   │  -       │  4       │  5       │  6       │  /       │
+            HRML(LT,   PRCNT,     LPAR,      LBRC)      &kp LBKT       &kp MINUS  &kp N4     &kp N5     &kp N6     &kp FSLH  
+        //├──────────┼──────────┼──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┼──────────┼──────────┤
+        //│  >       │  !       │  )       │  }       │  ]       │   │  0       │  1       │  2       │  3       │  =       │
+            &kp GT     &kp EXCL   &kp RPAR   &kp RBRC   &kp RBKT       &kp N0     &kp N1     &kp N2     &kp N3     &kp EQUAL 
+        //╰──────────┴──────────┴──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┴──────────┴──────────╯
+                                             &trans     &kp LSHFT      &trans     &to BASE
         //                                 ╰──────────┴──────────╯   ╰──────────┴──────────╯
             >;
         };
@@ -103,7 +103,7 @@
         //│          │          │          │          │          │   │  BREAK   │  F1      │  F2      │  F3      │          │
             &trans     &trans     &trans     &trans     &trans     &kp PAUSE_BREAK &kp 1      &kp F2     &kp F3     &trans    
         //╰──────────┴──────────┴──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┴──────────┴──────────╯
-                                             &trans     &trans         &trans     &trans
+                                             &trans     &kp LSHFT      &trans     &to BASE
         //                                 ╰──────────┴──────────╯   ╰──────────┴──────────╯
             >;
         };
@@ -120,7 +120,7 @@
         //│          │          │          │          │PROFILE 2 │   │PROFILE 5 │          │  VOL DN  │          │          │
             &trans     &trans     &trans     &trans    &bt BT_SEL 2  &bt BT_SEL 5 &trans   &kp K_VOL_DN &trans     &trans
         //╰──────────┴──────────┴──────────┼──────────┼──────────┤   ├──────────┼──────────┼──────────┴──────────┴──────────╯
-                                             &trans     &trans         &trans     &trans
+                                             &trans     &trans         &trans     &to BASE
         //                                 ╰──────────┴──────────╯   ╰──────────┴──────────╯
             >;
         };
